@@ -39,6 +39,10 @@ import java.io.File
         var password: String? = null
         var accessToken: String? = null
 
+        {{#mutableHttpClient}}
+        var client: OkHttpClient = OkHttpClient()
+        {{/mutableHttpClient}}
+        {{^mutableHttpClient}}
         @JvmStatic
         val client: OkHttpClient by lazy {
             builder.build()
@@ -46,6 +50,7 @@ import java.io.File
 
         @JvmStatic
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
+        {{/mutableHttpClient}}
     }
 
     protected inline fun <reified T> requestBody(content: T, mediaType: String = JsonMediaType): RequestBody =

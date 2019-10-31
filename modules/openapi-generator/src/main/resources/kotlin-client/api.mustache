@@ -3,7 +3,9 @@ package {{apiPackage}}
 
 {{#imports}}import {{import}}
 {{/imports}}
-
+{{#mutableHttpClient}}
+import okhttp3.OkHttpClient
+{{/mutableHttpClient}}
 import {{packageName}}.infrastructure.ApiClient
 import {{packageName}}.infrastructure.ClientException
 import {{packageName}}.infrastructure.ClientError
@@ -17,7 +19,7 @@ import {{packageName}}.infrastructure.Success
 import {{packageName}}.infrastructure.toMultiValue
 
 {{#operations}}
-{{#nonPublicApi}}internal {{/nonPublicApi}}class {{classname}}(basePath: kotlin.String = "{{{basePath}}}"{{#mutableHttpClient}}, val client: OkHttpClient = OkHttpClient(){{/mutableHttpClient}}) : ApiClient(basePath{{#mutableHttpClient}}, client{{/mutableHttpClient}}) {
+{{#nonPublicApi}}internal {{/nonPublicApi}}class {{classname}}(basePath: kotlin.String = "{{{basePath}}}"{{#mutableHttpClient}}, val httpClient: OkHttpClient = OkHttpClient(){{/mutableHttpClient}}) : ApiClient(basePath{{#mutableHttpClient}}, httpClient{{/mutableHttpClient}}) {
 
     {{#operation}}
     /**

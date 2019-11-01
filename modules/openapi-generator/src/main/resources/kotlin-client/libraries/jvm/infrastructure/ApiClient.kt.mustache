@@ -23,7 +23,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Request
 import java.io.File
 
-{{#nonPublicApi}}internal {{/nonPublicApi}}open class ApiClient(val baseUrl: String) {
+{{#nonPublicApi}}internal {{/nonPublicApi}}open class ApiClient(val baseUrl: String{{#mutableHttpClient}}, val client: OkHttpClient{{/mutableHttpClient}}) {
     {{#nonPublicApi}}internal {{/nonPublicApi}}companion object {
         protected const val ContentType = "Content-Type"
         protected const val Accept = "Accept"
@@ -39,6 +39,7 @@ import java.io.File
         var password: String? = null
         var accessToken: String? = null
 
+        {{^mutableHttpClient}}
         @JvmStatic
         val client: OkHttpClient by lazy {
             builder.build()
@@ -46,6 +47,7 @@ import java.io.File
 
         @JvmStatic
         val builder: OkHttpClient.Builder = OkHttpClient.Builder()
+        {{/mutableHttpClient}}
     }
 
     protected inline fun <reified T> requestBody(content: T, mediaType: String = JsonMediaType): RequestBody =

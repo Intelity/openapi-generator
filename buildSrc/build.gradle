@@ -1,0 +1,21 @@
+buildscript {
+    dependencies {
+        classpath files("repository.jar")
+    }
+}
+
+apply plugin: "keypr-repo"
+
+repositories {
+    google()
+    jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+dependencies {
+    runtime files("repository.jar")
+    // KEYPR
+    runtime "com.keypr.build:gradle-plugin:5.2.3-SNAPSHOT"
+    // Android plugin
+    runtime "com.android.tools.build:gradle:3.5.1"
+}

@@ -1,0 +1,12 @@
+
+description = 'openapi-generator (maven-plugin)'
+dependencies {
+    compile group: 'org.sonatype.plexus', name: 'plexus-build-api', version:'0.0.7'
+    compile group: 'org.apache.maven', name: 'maven-core', version:'3.3.1'
+    compile group: 'org.apache.maven', name: 'maven-compat', version:'3.5.0'
+    compile group: 'org.apache.maven', name: 'maven-plugin-api', version:'3.3.1'
+    compile group: 'org.apache.maven.plugin-tools', name: 'maven-plugin-annotations', version:'3.4'
+  compile project(':openapi-generator')
+    testCompile group: 'junit', name: 'junit', version:'4.8.1'
+    compileOnly group: 'org.apache.maven', name: 'maven-artifact', version:'3.2.5'
+}

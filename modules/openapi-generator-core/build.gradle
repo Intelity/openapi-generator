@@ -1,0 +1,8 @@
+
+description = 'openapi-generator-core'
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version:'26.0-jre'
+    compile group: 'org.slf4j', name: 'slf4j-api', version:'1.7.12'
+    testCompile group: 'org.testng', name: 'testng', version:'6.14.3'
+}
+test.useTestNG()

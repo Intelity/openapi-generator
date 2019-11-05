@@ -63,7 +63,6 @@ pipeline {
       post {
         always {
           androidLint pattern: '*/build/reports/lint-*.xml'
-          junit testResults: '*/build/test-results/**/TEST-*.xml'
           slackNotify('kaos-slack-notifier-api-token', currentBuild.result, ['FIXED', 'BROKEN', 'UNSTABLE'])
         }
       }

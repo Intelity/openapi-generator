@@ -1,8 +1,9 @@
 buildscript {
-    ext.kotlin_version = '1.3.21'
+    ext.kotlin_version = '1.3.20'
     repositories {
         mavenLocal()
         mavenCentral()
+        jcenter()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
@@ -17,12 +18,11 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "gradle.plugin.org.gradle.kotlin:gradle-kotlin-dsl-plugins:1.1.3"
         classpath "com.gradle.publish:plugin-publish-plugin:0.10.1"
-        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.20.0"
-        classpath "de.marcphilipp.gradle:nexus-publish-plugin:0.2.0"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
     }
 }
 
-group 'com.intelity'
+group 'com.intelity.android'
 // Shared OpenAPI Generator version be passed via command line arg as -PopenApiGeneratorVersion=VERSION
 version "$openApiGeneratorVersion"
 description = """
@@ -33,12 +33,12 @@ specifications as part of your build. Other tasks are available as command line 
 """
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: "maven-publish"
 apply plugin: 'com.gradle.plugin-publish'
 apply plugin: 'java-gradle-plugin'
 apply plugin: 'kotlin'
 apply plugin: "org.gradle.kotlin.kotlin-dsl"
-
-apply plugin: 'keypr-repo'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

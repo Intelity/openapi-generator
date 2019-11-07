@@ -144,3 +144,65 @@ javadoc {
         options.addBooleanOption('html5', true)
     }
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom {
+                name = 'OpenAPI-Generator Contributors'
+                description = project.description
+                url = 'https://openapi-generator.tech'
+                organization {
+                    name = 'com.intelity'
+                    url = 'https://github.com/Intelity/openapi-generator'
+                }
+                licenses {
+                    license {
+                        name = "The Apache Software License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                        distribution = "repo"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "openapitools"
+                        name = "OpenAPI-Generator Contributors"
+                        email = "team@openapitools.org"
+                    }
+                }
+                scm {
+                    url = 'https://github.com/Intelity/openapi-generator'
+                    connection = 'scm:git:git://github.com/Intelity/openapi-generator.git'
+                    developerConnection = 'scm:git:ssh://git@github.com:Intelity/openapi-generator.git'
+                }
+                issueManagement {
+                    system = 'GitHub'
+                    url = 'https://github.com/OpenAPITools/openapi-generator/issues'
+                }
+            }
+        }
+    }
+}
+
+artifactory {
+    contextUrl = "https://cryptkeypr.jfrog.io/cryptkeypr"
+    publish {
+        repository {
+            // The Artifactory repository key to publish to
+            repoKey = 'kaos-maven'
+
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+        defaults {
+            // Reference to Gradle publications defined in the build script.
+            // This is how we tell the Artifactory Plugin which artifacts should be
+            // published to Artifactory.
+        publications('mavenJava')
+        publishArtifacts = true
+        }
+    }
+}
